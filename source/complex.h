@@ -2,6 +2,7 @@
 #pragma once
 
 #include "real.h"
+#include "common.h"
 
 struct Complex
 {
@@ -29,6 +30,11 @@ struct Complex
             lhs.real * rhs.real - lhs.imaginary * rhs.imaginary,
             lhs.real * rhs.imaginary + lhs.imaginary * rhs.real
         );
+    }
+
+    friend Complex operator/(Complex complex, Real value)
+    {
+        return Complex{ complex.real / value, complex.imaginary / value };
     }
 
     Real modulus()

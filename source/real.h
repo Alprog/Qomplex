@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <math.h>
+
 struct Real
 {
     float value;
@@ -39,6 +41,9 @@ struct Real
     {
         return Real(lhs.value * rhs.value);
     }
-};
 
-Real sqrt(Real scalar) { return scalar.sqrt(); }
+    friend Real operator/(Real lhs, Real rhs)
+    {
+        return Real(lhs.value / rhs.value);
+    }
+};

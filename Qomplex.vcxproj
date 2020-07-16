@@ -142,10 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\bra_vector2.cpp" />
+    <ClCompile Include="source\common.cpp" />
+    <ClCompile Include="source\ket_vector2.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\bra_vector2.h" />
+    <ClInclude Include="source\common.h" />
     <ClInclude Include="source\complex.h" />
     <ClInclude Include="source\ket_vector2.h" />
     <ClInclude Include="source\matrix2x2.h" />
