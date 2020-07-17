@@ -31,16 +31,15 @@ int main()
     std::cout << c.real.value << " " << c.imaginary.value << "\n";*/
 
     bra<2> b;
-    Matrix<1, 2> matrix{ b };
+    Matrix<1, 2> bra_matrix{ b };
 
-    matrix.b();
+    ket<2> k;
+    Matrix<2, 1> ket_matrix{ k };
 
-    Matrix<2, 1> matri;
+    auto r = bra_matrix * ket_matrix;
 
-    auto k = matrix * matri;
+    auto rr = bra_matrix * k;
 
-
-    
 
 
     //matrix.m[3][3] = Complex(3, 3);
