@@ -10,6 +10,8 @@
 
 int main()
 {
+    auto c = 3.0f + 4.4_i;
+
     /*Real scalar{ 3.0f };
 
     Complex complex = Complex{ 3.0f, 2.0f };

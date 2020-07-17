@@ -15,6 +15,18 @@ struct Complex
     {
     }
 
+    Complex(float real)
+        : real{ real }
+        , imaginary{ 0 }
+    {
+    }
+
+    Complex(Real real)
+        : real{ real }
+        , imaginary{ 0 }
+    {
+    }
+
     Complex(Real real, Real imaginary)
         : real{real}
         , imaginary{imaginary}
@@ -53,3 +65,5 @@ struct Complex
         return Complex{ real, -imaginary };
     }
 };
+
+Complex operator "" _i(long double imaginary);

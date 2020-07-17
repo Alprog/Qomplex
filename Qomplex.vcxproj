@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="source\bra_vector2.cpp" />
     <ClCompile Include="source\common.cpp" />
+    <ClCompile Include="source\complex.cpp" />
     <ClCompile Include="source\ket_vector2.cpp" />
     <ClCompile Include="source\ket_vector4.cpp" />
     <ClCompile Include="source\main.cpp" />
