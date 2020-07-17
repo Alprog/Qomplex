@@ -10,7 +10,7 @@
 
 int main()
 {
-    Real scalar{ 3.0f };
+    /*Real scalar{ 3.0f };
 
     Complex complex = Complex{ 3.0f, 2.0f };
 
@@ -28,15 +28,20 @@ int main()
 
     auto c = bra * bra.hermitian_conjugate();
 
-    std::cout << c.real.value << " " << c.imaginary.value << "\n";
+    std::cout << c.real.value << " " << c.imaginary.value << "\n";*/
 
-    Matrix<1, 4> matrix;
-
-    matrix.b();
-
-    Matrix<4, 4> matrix;
+    bra<2> b;
+    Matrix<1, 2> matrix{ b };
 
     matrix.b();
+
+    Matrix<2, 1> matri;
+
+    auto k = matrix * matri;
+
+
+    
+
 
     //matrix.m[3][3] = Complex(3, 3);
 
