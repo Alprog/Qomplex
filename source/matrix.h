@@ -21,7 +21,10 @@ concept ToMatrix = requires (T a) { a.ToMatrix(); };
 template<typename T1, typename T2>
 concept MultipliableMatrices = requires (T1 lhs, T2 rhs) { lhs.ToMatrix() * rhs.ToMatrix(); };
 
-template <int R, int C> requires (R >= 1 && C >= 1)
+template<size_t R, size_t C>
+concept ValidSize = (R >= 1 && C >= 1);
+
+template <size_t R, size_t C> requires ValidSize<R, C>
 struct Matrix
 {
     Complex m[R][C];
@@ -83,19 +86,19 @@ Complex operator*(Matrix<R1, C1> lhs, Matrix<R2, C2> rhs) requires (C1 == R2) &&
     return Complex{ 0, 0 };
 }*/
 
-template <int R, int C> requires (R >= 1 && C >= 1)
+template <size_t R, size_t C> requires ValidSize<R, C>
 Matrix<R, C>::Matrix(bra<C>)
 {
 
 }
 
-template <int R, int C> requires (R >= 1 && C >= 1)
+template <size_t R, size_t C> requires ValidSize<R, C>
 Matrix<R, C>::Matrix(ket<R>)
 {
 
 }
 
-template<int R1, int C1, int R2, int C2>
+template<size_t R1, size_t C1, size_t R2, size_t C2>
 auto operator*(Matrix<R1, C1> lhs, Matrix<R2, C2> rhs) requires (C1 == R2)
 {
     Matrix<R1, C2> result;
