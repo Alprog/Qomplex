@@ -9,6 +9,12 @@ struct Complex
     Real real;
     Real imaginary;
 
+    Complex()
+        : real {0}
+        , imaginary {0}
+    {
+    }
+
     Complex(Real real, Real imaginary)
         : real{real}
         , imaginary{imaginary}

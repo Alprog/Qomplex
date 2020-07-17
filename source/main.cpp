@@ -6,6 +6,7 @@
 #include "bra_vector2.h"
 #include "ket_vector2.h"
 #include "matrix2x2.h"
+#include "matrix.h"
 
 int main()
 {
@@ -28,6 +29,16 @@ int main()
     auto c = bra * bra.hermitian_conjugate();
 
     std::cout << c.real.value << " " << c.imaginary.value << "\n";
+
+    Matrix<1, 4> matrix;
+
+    matrix.b();
+
+    Matrix<4, 4> matrix;
+
+    matrix.b();
+
+    //matrix.m[3][3] = Complex(3, 3);
 
     return 0;
 }

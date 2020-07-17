@@ -154,6 +154,7 @@
     <ClInclude Include="source\complex.h" />
     <ClInclude Include="source\ket_vector2.h" />
     <ClInclude Include="source\ket_vector4.h" />
+    <ClInclude Include="source\matrix.h" />
     <ClInclude Include="source\matrix2x2.h" />
     <ClInclude Include="source\real.h" />
   </ItemGroup>
