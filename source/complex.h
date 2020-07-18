@@ -41,6 +41,22 @@ struct Complex
         );
     }
 
+    friend Complex operator-(Complex lhs, Complex rhs)
+    {
+        return Complex(
+            lhs.real - rhs.real,
+            lhs.imaginary - rhs.imaginary
+        );
+    }
+
+    friend Complex operator-(Complex complex)
+    {
+        return Complex(
+            -complex.real,
+            -complex.imaginary
+        );
+    }
+
     friend Complex operator*(Complex lhs, Complex rhs)
     {
         // (a + bi)(c + di) = ac + bci + adi + bd(i^2) = (ac - bd) + (bc + ad)*i 

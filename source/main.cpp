@@ -32,8 +32,17 @@ int main()
 
     std::cout << c.real.value << " " << c.imaginary.value << "\n";*/
 
-    bra<2> b;
+    Matrix<2, 2> lhs;
+    lhs.m[0][0] =         1; lhs.m[0][1] = 1 - 1.0_i;
+    lhs.m[1][0] = 1 + 1.0_i; lhs.m[1][1] = -1;
+
+    Matrix<2, 2> rhs;
+    rhs.m[0][0] =      3; rhs.m[0][1] = 2.0_i;
+    rhs.m[1][0] = -2.0_i; rhs.m[1][1] = -2;
+
+    auto mm = lhs * rhs;
     
+    bra<2> b;
     auto matrix = b.ToMatrix();
 
     Matrix<1, 2> bra_matrix = Matrix<1, 2>(b);
