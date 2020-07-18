@@ -37,14 +37,21 @@ struct Matrix
     {
     }
 
-    Matrix(bra<C>);
-    Matrix(ket<R>);
-
-    /*template<int R2, int C2>
-    friend Matrix<R, C2> operator*(Matrix lhs, Matrix<R2, C2> rhs)
+    Matrix(bra<C> bra) requires (R == 1)
     {
-        return Matrix<R, C2>{};
-    }*/
+        for (size_t c = 0; c < R; c++)
+        {
+            m[0][c] = bra.component[c];
+        }
+    }
+
+    Matrix(ket<R> ket) requires (C == 1)
+    {
+        for (size_t r = 0; r < R; r++)
+        {
+            m[r][0] = ket.component[r];
+        }
+    }
 
     Matrix ToMatrix() { return *this; }
 
@@ -65,48 +72,31 @@ struct complex_vector
 template <size_t Size>
 struct bra : complex_vector<Size>
 {
-    Matrix<1, Size> ToMatrix()
-    {
-        return Matrix<1, Size>();
-    }
+    auto ToMatrix() { return Matrix<1, Size>(*this); }
 };
 
 template <size_t Size>
 struct ket : complex_vector<Size>
 {
-    Matrix<Size, 1> ToMatrix()
-    {
-        return Matrix<Size, 1>();
-    }
+    auto ToMatrix() { return Matrix<Size, 1>(*this); }
 };
-
-/*template<int R1, int C1, int R2, int C2>
-Complex operator*(Matrix<R1, C1> lhs, Matrix<R2, C2> rhs) requires (C1 == R2) && (C2 == 1 && R1 == 1)
-{
-    return Complex{ 0, 0 };
-}*/
-
-template <size_t R, size_t C> requires ValidSize<R, C>
-Matrix<R, C>::Matrix(bra<C>)
-{
-
-}
-
-template <size_t R, size_t C> requires ValidSize<R, C>
-Matrix<R, C>::Matrix(ket<R>)
-{
-
-}
 
 template<size_t R1, size_t C1, size_t R2, size_t C2>
 auto operator*(Matrix<R1, C1> lhs, Matrix<R2, C2> rhs) requires (C1 == R2)
 {
-    Matrix<R1, C2> result;
+    auto size = C1;
 
-    for (size_t r = 0; r <= R1; r++)
+    Matrix<R1, C2> result;
+    for (size_t r = 0; r < R1; r++)
     {
         for (size_t c = 0; c < C2; c++)
         {
+            Complex value{ 0, 0 };
+            for (size_t i = 0; i < size; i++)
+            {
+                value = value + lhs.m[r][i] * rhs.m[i][c];
+            }
+            result.m[r][c] = value;
         }
     }
 

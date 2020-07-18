@@ -33,7 +33,10 @@ int main()
     std::cout << c.real.value << " " << c.imaginary.value << "\n";*/
 
     bra<2> b;
-    Matrix<1, 2> bra_matrix { b };
+    
+    auto matrix = b.ToMatrix();
+
+    Matrix<1, 2> bra_matrix = Matrix<1, 2>(b);
 
     ket<2> k;
     Matrix<2, 1> ket_matrix{ k };
