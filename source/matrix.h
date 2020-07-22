@@ -16,9 +16,6 @@ struct bra;
 template <size_t Size>
 struct ket;
 
-template<int T>
-concept Concept = T == 1;
-
 template<typename T>
 concept ToMatrix = requires (T a) { a.ToMatrix(); };
 
@@ -28,10 +25,6 @@ concept MultipliableMatrices = requires (T1 lhs, T2 rhs) { lhs.ToMatrix() * rhs.
 template<size_t R, size_t C>
 concept ValidSize = (R >= 1 && C >= 1);
 
-template<int Count, typename... Types>
-concept MatrixCtorValid = requires (Types... list) { std::array<Complex, Count>{ (Complex)list... }; } &&
-                          (sizeof...(Types) == Count);
-
 template <size_t R, size_t C> requires ValidSize<R, C>
 struct Matrix
 {
@@ -39,16 +32,12 @@ struct Matrix
 
     Complex m[R][C];
 
-    void a() {}
-
-    void b() requires Concept<R> {}
-
     Matrix()
     {
     }
 
     template <typename... Types>
-    Matrix(Types... list) requires MatrixCtorValid<Count, Types...>
+    Matrix(Types... list) requires CtorValid<Count, Types...>
     {
         Complex args[Count] { list... };
         auto ptr = m[0];
