@@ -53,6 +53,32 @@ struct Matrix
         }
     }
 
+    Matrix<C, R> transpose()
+    {
+        Matrix<C, R> result;
+        for (size_t r = 0; r < R; r++)
+        {
+            for (size_t c = 0; c < C; c++)
+            {
+                result.m[c][r] = m[r][c];
+            }
+        }
+        return result;
+    }
+
+    Matrix<C, R> hermitian_conjugate()
+    {
+        Matrix<C, R> result;
+        for (size_t r = 0; r < R; r++)
+        {
+            for (size_t c = 0; c < C; c++)
+            {
+                result.m[c][r] = m[r][c].conjugate();
+            }
+        }
+        return result;
+    }
+
     Matrix ToMatrix() { return *this; }
 
     Complex simplify() requires (R == 1 && C == 1) { return m[0][0]; };

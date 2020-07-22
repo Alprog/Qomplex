@@ -71,6 +71,16 @@ struct Complex
         return Complex{ complex.real / value, complex.imaginary / value };
     }
 
+    friend bool operator==(Complex lhs, Complex rhs)
+    {
+        return lhs.real == rhs.real && lhs.imaginary == rhs.imaginary;
+    }
+
+    friend bool operator!=(Complex lhs, Complex rhs)
+    {
+        return lhs.real != rhs.real || lhs.imaginary != rhs.imaginary;
+    }
+
     Real modulus()
     {
         return sqrt(real.pow2() + imaginary.pow2());

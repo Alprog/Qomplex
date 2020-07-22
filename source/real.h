@@ -46,4 +46,14 @@ struct Real
     {
         return Real(lhs.value / rhs.value);
     }
+
+    friend bool operator==(Real lhs, Real rhs)
+    {
+        return lhs.value == rhs.value;
+    }
+
+    friend bool operator!=(Real lhs, Real rhs)
+    {
+        return lhs.value != rhs.value;
+    }
 };
