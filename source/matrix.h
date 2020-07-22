@@ -7,6 +7,10 @@
 #include <vector>
 #include <cmath>
 
+#include <stdio.h>
+#include <stdarg.h>
+#include <array>
+
 template <size_t Size>
 struct bra;
 template <size_t Size>
@@ -24,9 +28,15 @@ concept MultipliableMatrices = requires (T1 lhs, T2 rhs) { lhs.ToMatrix() * rhs.
 template<size_t R, size_t C>
 concept ValidSize = (R >= 1 && C >= 1);
 
+template<int Count, typename... Types>
+concept MatrixCtorValid = requires (Types... list) { std::array<Complex, Count>{ (Complex)list... }; } &&
+                          (sizeof...(Types) == Count);
+
 template <size_t R, size_t C> requires ValidSize<R, C>
 struct Matrix
 {
+    static constexpr size_t Count = R * C;
+
     Complex m[R][C];
 
     void a() {}
@@ -35,6 +45,17 @@ struct Matrix
 
     Matrix()
     {
+    }
+
+    template <typename... Types>
+    Matrix(Types... list) requires MatrixCtorValid<Count, Types...>
+    {
+        Complex args[Count] { list... };
+        auto ptr = m[0];
+        for (auto complex : args)
+        {
+            *ptr++ = complex;
+        }
     }
 
     Matrix(bra<C> bra) requires (R == 1)

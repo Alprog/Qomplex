@@ -92,4 +92,5 @@ struct Complex
     }
 };
 
+Complex operator "" _i(unsigned long long imaginary);
 Complex operator "" _i(long double imaginary);
