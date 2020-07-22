@@ -57,7 +57,7 @@ struct Matrix
     {
         for (size_t c = 0; c < R; c++)
         {
-            data[0][c] = bra.data[c];
+            data[0][c] = bra[c];
         }
     }
 
@@ -65,7 +65,7 @@ struct Matrix
     {
         for (size_t r = 0; r < R; r++)
         {
-            data[r][0] = ket.data[r];
+            data[r][0] = ket[r];
         }
     }
 

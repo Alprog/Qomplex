@@ -24,6 +24,11 @@ struct complex_array
     {
     }
 
+    Complex operator[](size_t index)
+    {
+        return data[index];
+    }
+
     constexpr size_t size() { return Size; };
 };
 

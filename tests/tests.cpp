@@ -54,11 +54,29 @@ void test_dot_product()
     assert(result == 9);
 }
 
+void test_matrix_ket()
+{
+    Matrix<2, 2> matrix
+    {
+        2, 1,
+        1, 2
+    };
+
+    ket<2> ket
+    {
+        1,
+        1
+    };
+
+    auto result = matrix * ket;
+
+    //assert(result[0] == 3 && result[1] == 3);
+}
+
 void run_tests()
 {
     test_matrices_multiplication();
     test_hermitian_conjugate();
     test_dot_product();
-
-    complex_array<3> a{ 3, 3_i, 3_i };
+    test_matrix_ket();
 }
