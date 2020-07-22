@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="source\common.h" />
     <ClInclude Include="source\complex.h" />
+    <ClInclude Include="source\complex_array.h" />
     <ClInclude Include="source\matrix.h" />
     <ClInclude Include="source\real.h" />
     <ClInclude Include="tests\tests.h" />

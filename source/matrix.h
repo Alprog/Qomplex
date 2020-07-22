@@ -113,7 +113,7 @@ struct complex_vector
 {
     Complex component[Size];
 
-    size_t size() { return Size; };
+    constexpr size_t size() { return Size; };
 };
 
 template <size_t Size>

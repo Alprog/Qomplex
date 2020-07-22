@@ -2,6 +2,7 @@
 #include "tests.h"
 #include <iostream>
 #include "../source/matrix.h"
+#include "../source/complex_array.h"
 
 #define assert(expression) if (!(expression)) std::cout << #expression << std::endl;
 
@@ -51,4 +52,6 @@ void run_tests()
     test_matrices_multiplication();
     test_hermitian_conjugate();
     test_dot_product();
+
+    complex_array<3> a{ 3, 3_i, 3_i };
 }
