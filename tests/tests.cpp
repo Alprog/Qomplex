@@ -22,29 +22,36 @@ void test_matrices_multiplication()
 
     auto result = lhs * rhs;
 
-    assert(result.m[0][0] == 1 - 2_i); assert(result.m[0][1] == -2 + 4_i);
-    assert(result.m[1][0] == 3 + 5_i); assert(result.m[1][1] == 2_i);
+    assert(result[0][0] == 1 - 2_i); assert(result[0][1] == -2 + 4_i);
+    assert(result[1][0] == 3 + 5_i); assert(result[1][1] == 2_i);
 }
 
 void test_hermitian_conjugate()
 {
-    Matrix<2, 2> matrix;
-    matrix.m[0][0] = 1 - 2_i; matrix.m[0][1] = -2 + 4_i;
-    matrix.m[1][0] = 3 + 5_i; matrix.m[1][1] = 2_i;
+    Matrix<2, 2> matrix
+    {
+        1 - 2_i, -2 + 4_i,
+        3 + 5_i,   2_i
+    };
 
     auto result = matrix.hermitian_conjugate();
 
-    assert(result.m[0][0] ==  1 + 2_i); assert(result.m[0][1] == 3 - 5_i);
-    assert(result.m[1][0] == -2 - 4_i); assert(result.m[1][1] == -2_i);
+    assert(result[0][0] ==  1 + 2_i); assert(result[0][1] == 3 - 5_i);
+    assert(result[1][0] == -2 - 4_i); assert(result[1][1] == -2_i);
 }
 
 void test_dot_product()
 {
-    ket<2> ket;
+    bra<2> bra{ 3, 2 };
+    ket<2> ket
+    {
+        3, 
+        0 
+    };
     
-    Matrix<2, 2> m{ 3, 3_i, 3_i, 3_i };
+    auto result = bra * ket;
 
-   // m.hermitian_conjugate();
+    assert(result == 9);
 }
 
 void run_tests()

@@ -23,6 +23,8 @@ struct complex_array
         : data{(Complex)args...}
     {
     }
+
+    constexpr size_t size() { return Size; };
 };
 
 #define TemplateCtor(class, base) \

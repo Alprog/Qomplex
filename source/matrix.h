@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Complex.h";
+#include "complex_array.h";
 #include <type_traits>
 #include <concepts>
 #include <vector>
@@ -30,7 +31,12 @@ struct Matrix
 {
     static constexpr size_t Count = R * C;
 
-    Complex m[R][C];
+    Complex data[R][C];
+
+    Complex* operator[](size_t row)
+    {
+        return data[row];
+    }
 
     Matrix()
     {
@@ -40,7 +46,7 @@ struct Matrix
     Matrix(Types... list) requires CtorValid<Count, Types...>
     {
         Complex args[Count] { list... };
-        auto ptr = m[0];
+        auto ptr = data[0];
         for (auto complex : args)
         {
             *ptr++ = complex;
@@ -51,7 +57,7 @@ struct Matrix
     {
         for (size_t c = 0; c < R; c++)
         {
-            m[0][c] = bra.component[c];
+            data[0][c] = bra.data[c];
         }
     }
 
@@ -59,7 +65,7 @@ struct Matrix
     {
         for (size_t r = 0; r < R; r++)
         {
-            m[r][0] = ket.component[r];
+            data[r][0] = ket.data[r];
         }
     }
 
@@ -70,7 +76,7 @@ struct Matrix
         {
             for (size_t c = 0; c < C; c++)
             {
-                result.m[c][r] = m[r][c];
+                result[c][r] = data[r][c];
             }
         }
         return result;
@@ -83,7 +89,7 @@ struct Matrix
         {
             for (size_t c = 0; c < C; c++)
             {
-                result.m[c][r] = m[r][c].conjugate();
+                result[c][r] = data[r][c].conjugate();
             }
         }
         return result;
@@ -91,29 +97,25 @@ struct Matrix
 
     Matrix ToMatrix() { return *this; }
 
-    Complex simplify() requires (R == 1 && C == 1) { return m[0][0]; };
+    Complex simplify() requires (R == 1 && C == 1) { return data[0][0]; };
     bra<C> simplify() requires (R == 1 && C != 1) { return bra<C>{}; };
     ket<R> simplify() requires (R != 1 && C == 1) { return ket<R>{}; };
     Matrix simplify() requires (R != 1 && C != 1) { return *this; }
 };
 
 template <size_t Size>
-struct complex_vector
+struct bra : complex_array<Size>
 {
-    Complex component[Size];
+    TemplateCtor(bra, complex_array)
 
-    constexpr size_t size() { return Size; };
-};
-
-template <size_t Size>
-struct bra : complex_vector<Size>
-{
     auto ToMatrix() { return Matrix<1, Size>(*this); }
 };
 
 template <size_t Size>
-struct ket : complex_vector<Size>
+struct ket : complex_array<Size>
 {
+    TemplateCtor(ket, complex_array)
+
     auto ToMatrix() { return Matrix<Size, 1>(*this); }
 };
 
@@ -130,9 +132,9 @@ auto operator*(Matrix<R1, C1> lhs, Matrix<R2, C2> rhs) requires (C1 == R2)
             Complex value{ 0, 0 };
             for (size_t i = 0; i < size; i++)
             {
-                value = value + lhs.m[r][i] * rhs.m[i][c];
+                value = value + lhs[r][i] * rhs[i][c];
             }
-            result.m[r][c] = value;
+            result[r][c] = value;
         }
     }
 
